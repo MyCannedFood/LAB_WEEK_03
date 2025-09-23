@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,12 +43,20 @@ class DetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val coffeeId = arguments?.getInt(COFFEE_ID, 0) ?: 0
         setCoffeeData(coffeeId)
+
+        // Find the button and set an OnClickListener
+        val backButton = view.findViewById<Button>(R.id.back_button)
+        backButton.setOnClickListener {
+            // Navigate back to the previous fragment in the back stack
+            findNavController().popBackStack()
+        }
     }
 
     fun setCoffeeData(id: Int) {
@@ -55,18 +65,25 @@ class DetailFragment : Fragment() {
                 coffeeTitle?.text = getString(R.string.affogato_title)
                 coffeeDesc?.text = getString(R.string.affogato_desc)
             }
-
             R.id.americano -> {
                 coffeeTitle?.text = getString(R.string.americano_title)
                 coffeeDesc?.text = getString(R.string.americano_desc)
             }
-
             R.id.latte -> {
                 coffeeTitle?.text = getString(R.string.latte_title)
                 coffeeDesc?.text = getString(R.string.latte_desc)
             }
+            R.id.cappuccino -> {
+                coffeeTitle?.text = getString(R.string.cappuccino_title)
+                coffeeDesc?.text = getString(R.string.cappuccino_desc)
+            }
+            R.id.macchiato -> {
+                coffeeTitle?.text = getString(R.string.macchiato_title)
+                coffeeDesc?.text = getString(R.string.macchiato_desc)
+            }
         }
     }
+
     companion object {
         private const val COFFEE_ID = "COFFEE_ID"
         fun newInstance(coffeeId: Int) =
